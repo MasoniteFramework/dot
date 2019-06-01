@@ -1,0 +1,5 @@
+venv
+.vscode
+.pytest_*
+**/*__pycache__*
+collective_dot*
