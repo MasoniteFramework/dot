@@ -24,7 +24,7 @@ class Dot:
         if '.' not in search:
             if search == '':
                 return dictionary
-                
+
             try:
                 return dictionary[search]
             except KeyError:
@@ -41,7 +41,10 @@ class Dot:
                     return default
                 
                 if isinstance(dic, list):
-                    return collect(dic).pluck(searching[searching.index('*') + 1]).serialize()
+                    try:
+                        return collect(dic).pluck(searching[searching.index('*') + 1]).serialize()
+                    except KeyError:
+                        return []
 
 
                 dic = dic.get(search)

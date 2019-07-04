@@ -24,3 +24,4 @@ class TestDot(unittest.TestCase):
         self.assertEqual(DictDot().dot('address.*.id', payload), ['street1', 'street2'])
         self.assertEqual(DictDot().dot('address.*.street', payload), ['some street', 'a street'])
         self.assertEqual(DictDot().dot('user.*.street', payload), [])
+        self.assertEqual(DictDot().dot('address.*.house', payload), [])
