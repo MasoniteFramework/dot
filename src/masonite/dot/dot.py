@@ -1,5 +1,6 @@
 import pydoc
 import inspect
+from backpack import Collection as collect
 
 class Dot:
 
@@ -23,7 +24,7 @@ class Dot:
         if '.' not in search:
             if search == '':
                 return dictionary
-            # print('search', search, 'dictionary', dictionary)
+                
             try:
                 return dictionary[search]
             except KeyError:
@@ -35,7 +36,14 @@ class Dot:
             dic = dictionary
             for search in searching:
                 if not dic:
+                    if '*' in searching:
+                        return []
                     return default
+                
+                if isinstance(dic, list):
+                    return collect(dic).pluck(searching[searching.index('*') + 1]).serialize()
+
+
                 dic = dic.get(search)
 
                 if isinstance(dic, str) and dic.isnumeric():

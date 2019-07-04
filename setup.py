@@ -1,10 +1,15 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="collective-dot",
-    packages=find_packages(),
-    version='0.0.1',
-    install_requires=[],
+    name="masonite-dot",
+    packages=[
+        'masonite.dot'
+    ],
+    package_dir={'': 'src'},
+    version='0.0.3',
+    install_requires=[
+        "backpack>=0.1"
+    ],
     description="Validation Package",
     author="Joseph Mancuso",
     author_email='joe@masoniteproject.com',

@@ -3,3 +3,5 @@ venv
 .pytest_*
 **/*__pycache__*
 collective_dot*
+dist/
+src/masonite_dot.egg-info/

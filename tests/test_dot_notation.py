@@ -1,5 +1,5 @@
 
-from collective.dot import Dot as DictDot
+from src.masonite.dot import Dot as DictDot
 import unittest
 
 
@@ -15,3 +15,12 @@ class TestDot(unittest.TestCase):
             'key.none', {'key': {'test': {'layer': 'value'}}}), None)
         self.assertEqual(DictDot().dot('key', {'key': {'test': {'layer': 'value'}}}), {
                          'test': {'layer': 'value'}})
+
+    def test_dict_dot_asterisk(self):
+        payload = {
+            "username": "someone@mail.com",
+            "address": [{"id": "street1", "street": "some street"}, {"id": "street2", "street": "a street"}]
+        }
+        self.assertEqual(DictDot().dot('address.*.id', payload), ['street1', 'street2'])
+        self.assertEqual(DictDot().dot('address.*.street', payload), ['some street', 'a street'])
+        self.assertEqual(DictDot().dot('user.*.street', payload), [])
