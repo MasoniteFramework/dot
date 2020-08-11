@@ -6,7 +6,7 @@ setup(
         'masonite.dot'
     ],
     package_dir={'': 'src'},
-    version='0.0.4',
+    version='0.0.5',
     install_requires=[
         "backpack>=0.1"
     ],
