@@ -25,3 +25,14 @@ class TestDot(unittest.TestCase):
         self.assertEqual(DictDot().dot('address.*.street', payload), ['some street', 'a street'])
         self.assertEqual(DictDot().dot('user.*.street', payload), [])
         self.assertEqual(DictDot().dot('address.*.house', payload), [])
+
+    def test_dict_dot_asterisk_for_list(self):
+        payload = {
+            "username": "someone@mail.com",
+            "address": [{"id": "street1", "street": "some street"}, {"id": "street2", "street": "a street"}],
+            "ages": [1,2,3]
+        }
+        self.assertEqual(DictDot().dot('address.*.id', payload), ['street1', 'street2'])
+        self.assertEqual(DictDot().dot('address.*.street', payload), ['some street', 'a street'])
+        self.assertEqual(DictDot().dot('user.*.street', payload), [])
+        self.assertEqual(DictDot().dot('ages.*', payload), [1,2,3])

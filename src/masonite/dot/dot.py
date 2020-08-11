@@ -43,6 +43,8 @@ class Dot:
                 if isinstance(dic, list):
                     try:
                         return collect(dic).pluck(searching[searching.index('*') + 1]).serialize()
+                    except IndexError:
+                        return dic
                     except KeyError:
                         return []
 
