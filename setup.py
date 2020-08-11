@@ -10,10 +10,10 @@ setup(
     install_requires=[
         "backpack>=0.1"
     ],
-    description="Validation Package",
+    description="Masonite Dot Package",
     author="Joseph Mancuso",
     author_email='joe@masoniteproject.com',
-    url='https://github.com/MasoniteFramework/masonite',
+    url='https://github.com/MasoniteFramework/dot',
     keywords=['masonite', 'python web framework', 'python3'],
     licence='MIT',
     classifiers=[
@@ -21,7 +21,7 @@ setup(
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 5 - Production/Stable',
 
         # Indicate who your project is intended for
         'Intended Audience :: Developers',
