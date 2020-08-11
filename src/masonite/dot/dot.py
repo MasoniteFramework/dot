@@ -2,8 +2,8 @@ import pydoc
 import inspect
 from backpack import Collection as collect
 
-class Dot:
 
+class Dot:
     def dot(self, search, dictionary, default=None):
         """The search string in dot notation to look into the dictionary for.
 
@@ -21,8 +21,8 @@ class Dot:
             string -- Returns the value found the dictionary or the default
                         value specified above if nothing is found.
         """
-        if '.' not in search:
-            if search == '':
+        if "." not in search:
+            if search == "":
                 return dictionary
 
             try:
@@ -30,31 +30,39 @@ class Dot:
             except KeyError:
                 return default
 
-        searching = search.split('.')
+        searching = search.split(".")
         possible = None
         while searching:
             dic = dictionary
             for search in searching:
                 if not dic:
-                    if '*' in searching:
+                    if "*" in searching:
                         return []
                     return default
-                
+
                 if isinstance(dic, list):
                     try:
-                        return collect(dic).pluck(searching[searching.index('*') + 1]).serialize()
+                        return (
+                            collect(dic)
+                            .pluck(searching[searching.index("*") + 1])
+                            .serialize()
+                        )
                     except IndexError:
                         return dic
                     except KeyError:
                         return []
-
 
                 dic = dic.get(search)
 
                 if isinstance(dic, str) and dic.isnumeric():
                     continue
 
-                if dic and not isinstance(dic, int) and len(dic) == 1 and not isinstance(dic[list(dic)[0]], dict):
+                if (
+                    dic
+                    and not isinstance(dic, int)
+                    and len(dic) == 1
+                    and not isinstance(dic[list(dic)[0]], dict)
+                ):
                     possible = dic
 
             if not isinstance(dic, dict):
@@ -64,7 +72,7 @@ class Dot:
 
         return possible
 
-    def locate(self, search_path, default=''):
+    def locate(self, search_path, default=""):
         """Locate the object from the given search path
 
         Arguments:
@@ -81,14 +89,14 @@ class Dot:
         value = self.find(search_path, default)
 
         if isinstance(value, dict):
-            return self.dict_dot('.'.join(search_path.split('.')[3:]), value, default)
+            return self.dict_dot(".".join(search_path.split(".")[3:]), value, default)
 
         if value is not None:
             return value
 
         return default
 
-    def dict_dot(self, search, dictionary, default=''):
+    def dict_dot(self, search, dictionary, default=""):
         """Takes a dot notation representation of a dictionary and fetches it from the dictionary.
 
         This will take something like s3.locations and look into the s3 dictionary and fetch the locations
@@ -103,7 +111,7 @@ class Dot:
         """
         return self.dot(search, dictionary, default)
 
-    def find(self, search_path, default=''):
+    def find(self, search_path, default=""):
         """Used for finding both the uppercase and specified version.
 
         Arguments:
@@ -123,9 +131,9 @@ class Dot:
         if value:
             return value
 
-        paths = search_path.split('.')
+        paths = search_path.split(".")
 
-        value = pydoc.locate('.'.join(paths[:-1]) + '.' + paths[-1].upper())
+        value = pydoc.locate(".".join(paths[:-1]) + "." + paths[-1].upper())
 
         if value:
             return value
@@ -137,7 +145,8 @@ class Dot:
         while ran < len(paths):
             try:
                 value = pydoc.locate(
-                    '.'.join(paths[:search_path]) + '.' + paths[search_path].upper())
+                    ".".join(paths[:search_path]) + "." + paths[search_path].upper()
+                )
             except IndexError:
                 return default
 
@@ -145,7 +154,8 @@ class Dot:
                 break
 
             value = pydoc.locate(
-                '.'.join(paths[:search_path]) + '.' + paths[search_path])
+                ".".join(paths[:search_path]) + "." + paths[search_path]
+            )
 
             if value:
                 break
